@@ -32,13 +32,20 @@ for x in apple_file.read().split():
     apple_words.append(x)
     total_word_count += 1
 
-#tag words for prepositions, verbs etc. with NLTK library
-NLTK_tagged = nltk.pos_tag(apple_words)
-print(NLTK_tagged[0:11])
 
-#~~~~~ TBC ~~~~~#
+#generate and remove stop words from our apple words
+stop_words_list = list(nltk.corpus.stopwords.words("english"))
+print(len(stop_words_list))
 
-#make a copy of the list so we can compare to it later once we clean the original list of dupes
+for x in range(0, len(stop_words_list)):
+    for i in range(0, len(apple_words)):
+        
+        if apple_words[i] == stop_words_list[x]:
+            del apple_words[i]
+            total_word_count = total_word_count - 1
+
+
+#make a copy of the list so we can count word frequencies once we clean the original list of dupes
 copy_apple_words = apple_words.copy()
 
 #set initial while loop values
@@ -90,8 +97,8 @@ for word_count in range(0, len(word_count_list)):
 
 
 #print 10 top used words in descending order
-print (word_count_list[11:20])
-print(apple_words[11:20])            
+print (word_count_list[:11])
+print(apple_words[:11])            
 
 #close the file when finished
 apple_file.close()
