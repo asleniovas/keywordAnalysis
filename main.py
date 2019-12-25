@@ -35,15 +35,22 @@ for x in apple_file.read().split():
 
 #generate and remove stop words from our apple words
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
-print(len(stop_words_list))
 
-for x in range(0, len(stop_words_list)):
-    for i in range(0, len(apple_words)):
-        
-        if apple_words[i] == stop_words_list[x]:
-            del apple_words[i]
+#set initial while loop values
+i = 0
+j = i + 1
+
+while i < len(stop_words_list):
+    while j < len(apple_words):
+        if apple_words[j] == stop_words_list[i]:
+            del apple_words[j]
             total_word_count = total_word_count - 1
-
+        else:
+            j = j + 1
+    
+    i = i + 1
+    j = i + 1
+            
 
 #make a copy of the list so we can count word frequencies once we clean the original list of dupes
 copy_apple_words = apple_words.copy()
