@@ -20,7 +20,7 @@ total_word_count = 0
 total_word_frequency = 0
 apple_words = []
 
-#set file location, mines in downloads
+#set text file location, mine is in downloads
 downloads = os.path.join(os.path.expanduser("~"), "Downloads")
 filePath = os.path.join(downloads, "Apple_Event_2019_09.txt")
 
@@ -32,11 +32,9 @@ for x in apple_file.read().split():
     apple_words.append(x)
     total_word_count += 1
 
-
 #generate and remove stop words from our apple words
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
-#set initial while loop values
 i = 0
 j = i + 1
 
