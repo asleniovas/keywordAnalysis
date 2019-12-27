@@ -1,4 +1,7 @@
-############## ~ REQUIRED LIBRARIES ~ ##############
+# |_                      _|
+# |   REQUIRED LIBRARIES   |
+# |                        |
+
 
 #1 ~ for cross-platform file location
 import os
@@ -13,7 +16,9 @@ import nltk
 #nltk.download('all')
 
 
- ############## ~ MAIN CODE ~ ##############
+# |_             _|
+# |   MAIN CODE   |
+# |               |
 
 #variable and object declarations
 word_count_list = []
@@ -26,7 +31,9 @@ apple_words = []
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
 
-# STEP 1 ~~~~~ TEXT FILE LOCATION AND OPENING ~~~~~#
+# |_                                           _|
+# |   STEP 1 - TEXT FILE LOCATION AND OPENING   |
+# |                                             |
 
 #set text file location and open, mine is in downloads
 downloads = os.path.join(os.path.expanduser("~"), "Downloads")
@@ -42,8 +49,9 @@ for x in apple_file.read().split():
 copy_apple_words = apple_words.copy()
 
 
-
-# STEP 2 ~~~~~ TEXT CLEANING AND NORMALISATION ~~~~~#
+# |_                                            _|
+# |   STEP 2 - TEXT CLEANING AND NORMALISATION   |
+# |                                              |
 
 #clean apple_words from duplicates by calling removeDuplicates() function
 cleaner_class = TextCleaner()
