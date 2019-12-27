@@ -1,16 +1,19 @@
-#~~~~~ REQUIRED LIBRARIES ~~~~~#
+############## ~ REQUIRED LIBRARIES ~ ##############
 
 #1 ~ for cross-platform file location
 import os
 
-#2 ~ natural language processing toolkit - NLTK
+#2 ~ our class from other file that holds various text cleaning methods
+from textCleaner import TextCleaner
+
+#3 ~ natural language processing toolkit - NLTK
 import nltk 
 #download relevant NLTK data, this needs to be done just once for first time users
 #alternatively you can also use the command line to download whatever NLTK data package you need see https://www.nltk.org/data.html
 #nltk.download('all')
 
 
-#~~~~~ MAIN CODE ~~~~~#
+ ############## ~ MAIN CODE ~ ##############
 
 #variable declarations
 word_count_list = []
@@ -20,35 +23,27 @@ total_word_count = 0
 total_word_frequency = 0
 apple_words = []
 
-#set text file location, mine is in downloads
+#~~~~~ TEXT FILE LOCATION AND OPENING ~~~~~#
+
+#set text file location and open, mine is in downloads
 downloads = os.path.join(os.path.expanduser("~"), "Downloads")
 filePath = os.path.join(downloads, "Apple_Event_2019_09.txt")
 
-#open the required text file
 apple_file = open(filePath, encoding='utf-8-sig')
 
-#loop through file and append all the words to the first list
+#loop through file and append all the words to the apple_words array
 for x in apple_file.read().split():
     apple_words.append(x)
     total_word_count += 1
 
-#generate and remove stop words from our apple words
+#~~~~~ TEXT CLEANING AND NORMALISATION ~~~~~#
+
+#generate stop words array with help of NLTK
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
-i = 0
-j = i + 1
+#call our TextCleaner class compareRemove() function to remove stop words from our apple_words array
+clean_apple_words = TextCleaner().compareRemove(stop_words_list, apple_words)
 
-while i < len(stop_words_list):
-    while j < len(apple_words):
-        if apple_words[j] == stop_words_list[i]:
-            del apple_words[j]
-            total_word_count = total_word_count - 1
-        else:
-            j = j + 1
-    
-    i = i + 1
-    j = i + 1
-            
 
 #make a copy of the list so we can count word frequencies once we clean the original list of dupes
 copy_apple_words = apple_words.copy()
