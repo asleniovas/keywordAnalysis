@@ -15,15 +15,18 @@ import nltk
 
  ############## ~ MAIN CODE ~ ##############
 
-#variable declarations
+#variable and object declarations
 word_count_list = []
 word_counter = 0
 counter = 0
-total_word_count = 0
 total_word_frequency = 0
 apple_words = []
 
-#~~~~~ TEXT FILE LOCATION AND OPENING ~~~~~#
+#generate stop words array with help of NLTK
+stop_words_list = list(nltk.corpus.stopwords.words("english"))
+
+
+# STEP 1 ~~~~~ TEXT FILE LOCATION AND OPENING ~~~~~#
 
 #set text file location and open, mine is in downloads
 downloads = os.path.join(os.path.expanduser("~"), "Downloads")
@@ -34,36 +37,20 @@ apple_file = open(filePath, encoding='utf-8-sig')
 #loop through file and append all the words to the apple_words array
 for x in apple_file.read().split():
     apple_words.append(x)
-    total_word_count += 1
 
-#~~~~~ TEXT CLEANING AND NORMALISATION ~~~~~#
-
-#generate stop words array with help of NLTK
-stop_words_list = list(nltk.corpus.stopwords.words("english"))
-
-#call our TextCleaner class compareRemove() function to remove stop words from our apple_words array
-clean_apple_words = TextCleaner().compareRemove(stop_words_list, apple_words)
-
-
-#make a copy of the list so we can count word frequencies once we clean the original list of dupes
+#make a copy of the list so we can count word frequencies once we clean the original list of dupes and other clutter
 copy_apple_words = apple_words.copy()
 
-#set initial while loop values
-i = 0
-j = i + 1
 
-#start with first word and loop through whole list to check if it appears and delete
-#update total_word_count as words get deleted
-while i < total_word_count:
-    while j < total_word_count:
-        if apple_words[i] == apple_words[j]:
-            del apple_words[j]
-            total_word_count = total_word_count - 1
-        else:
-            j = j + 1
-    i = i + 1
-    j = i + 1
 
+# STEP 2 ~~~~~ TEXT CLEANING AND NORMALISATION ~~~~~#
+
+#clean apple_words from duplicates by calling removeDuplicates() function
+cleaner_class = TextCleaner()
+unique_apple_words = cleaner_class.removeDuplicates(apple_words)
+
+#clean apple words from stop words by calling compareRemove() function
+unique_apple_words = cleaner_class.compareRemove(stop_words_list, unique_apple_words)
 
 #loop over the copy list by comparing words from the unique list and counting word frequency
 for i in range(0, len(apple_words)):

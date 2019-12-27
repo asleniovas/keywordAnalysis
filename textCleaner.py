@@ -33,3 +33,31 @@ class TextCleaner:
             j = 0
 
         return array2
+
+    #function removes duplicates from single array
+    def removeDuplicates(self, array1 = []):
+
+        #starting iteration values
+        i = 0
+        j = i + 1
+
+        #determining array length
+        array1_length = len(array1)
+
+        #loop through given array by comparing i element if it occurs further in array and remove
+        while i < array1_length:
+            while j < array1_length:
+
+                #if true remove and update array length
+                if array1[i] == array1[j]:
+                    del array1[j]
+                    array1_length = len(array1)
+                
+                #otherwise move forward in array with j
+                else:
+                    j = j + 1
+            
+            i = i + 1
+            j = i + 1
+
+        return array1
