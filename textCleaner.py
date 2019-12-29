@@ -70,7 +70,7 @@ class TextCleaner:
         dictionary1 = {}
 
         #loop through all keys by adding them and their values to the dict
-        for i in keysArray:
+        for i in range(0, len(keysArray)):
             dictionary1[keysArray[i]] = valuesArray[i]
 
         return dictionary1  

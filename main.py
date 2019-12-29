@@ -15,6 +15,13 @@ import nltk
 #alternatively you can also use the command line to download whatever NLTK data package you need see https://www.nltk.org/data.html
 #nltk.download('all')
 
+#4 ~ for generating word clouds
+from wordcloud import WordCloud
+
+#5 ~ for image processing with WordCloud
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
 
 # |_             _|
 # |   MAIN CODE   |
@@ -91,9 +98,26 @@ for word_count in range(0, len(word_count_list)):
 
 
 #print 10 top used words in descending order
-print(word_count_list[:11])
-print(unique_apple_words[:11])            
+#print(word_count_list[:21])
+#print(unique_apple_words[:21])            
+
+#convert word_count_list and unique_apple_words to a dictionary for word cloud generation
+apple_dictionary = cleaner_class.arraysToDict(unique_apple_words, word_count_list)
 
 #close the file when finished
 apple_file.close()
 
+
+# |_                                       _|
+# |    STEP X - WORD CLOUD VISUALISATION    |
+# |                                         |
+
+apple_mask = np.array(Image.open("C:/Users/asleniovas/Documents/repos/keywordAnalysis/apple.png"))
+
+#generating the word cloud
+wc = WordCloud(background_color="white", max_words=100, mask=apple_mask)
+wc.generate_from_frequencies(apple_dictionary)
+
+plt.imshow(wc, interpolation="bilinear")
+plt.axis("off")
+plt.show()
