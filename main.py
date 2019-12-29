@@ -63,23 +63,20 @@ unique_apple_words = cleaner_class.removeDuplicates(updated_apple_words)
 
 
 #loop over the copy list by comparing words from the unique list and counting word frequency
-for i in range(0, len(apple_words)):
+for i in range(0, len(unique_apple_words)):
     for k in range(0, len(copy_apple_words)):
-        if apple_words[i] == copy_apple_words[k]:
+
+        if unique_apple_words[i] == copy_apple_words[k]:
             word_counter += 1
+
     word_count_list.append(word_counter)
     word_counter = 0
 
-#sum the counts to see if the total word count is the same as original list length
-for n in range(0, len(word_count_list)):
-    total_word_frequency = total_word_frequency + word_count_list[n]
-
-#test if found total word frequency is the same as the length of original word list 
-assert total_word_frequency == len(copy_apple_words), "FALSE - sum of found word frequencies is not equal to original list length"
 
 #sort word frequencies in descending order
 for word_count in range(0, len(word_count_list)):
     for other_word_count in range(word_count + 1, len(word_count_list)):
+
         if word_count_list[word_count] < word_count_list[other_word_count]:
             
             #swap elements in frequency list
@@ -88,14 +85,14 @@ for word_count in range(0, len(word_count_list)):
             word_count_list[other_word_count] = tmp
 
             #swap elements in unique word list to correspond to word_count_list
-            tmp2 = apple_words[word_count]
-            apple_words[word_count] = apple_words[other_word_count]
-            apple_words[other_word_count] = tmp2
+            tmp2 = unique_apple_words[word_count]
+            unique_apple_words[word_count] = unique_apple_words[other_word_count]
+            unique_apple_words[other_word_count] = tmp2
 
 
 #print 10 top used words in descending order
-print (word_count_list[:11])
-print(apple_words[:11])            
+print(word_count_list[:11])
+print(unique_apple_words[:11])            
 
 #close the file when finished
 apple_file.close()
