@@ -34,6 +34,7 @@ class TextCleaner:
 
         return array2
 
+
     #function removes duplicates from single array
     def removeDuplicates(self, array1 = []):
 
@@ -61,3 +62,15 @@ class TextCleaner:
             j = i + 1
 
         return array1
+
+    #function turns 1 array with keys and 2nd array with values into dictionary 
+    def arraysToDict(self, keysArray = [], valuesArray = []):
+
+        #initilize empty dictionary
+        dictionary1 = {}
+
+        #loop through all keys by adding them and their values to the dict
+        for i in keysArray:
+            dictionary1[keysArray[i]] = valuesArray[i]
+
+        return dictionary1  

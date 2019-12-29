@@ -53,12 +53,14 @@ copy_apple_words = apple_words.copy()
 # |   STEP 2 - TEXT CLEANING AND NORMALISATION   |
 # |                                              |
 
-#clean apple_words from duplicates by calling removeDuplicates() function
-cleaner_class = TextCleaner()
-unique_apple_words = cleaner_class.removeDuplicates(apple_words)
 
 #clean apple words from stop words by calling compareRemove() function
-unique_apple_words = cleaner_class.compareRemove(stop_words_list, unique_apple_words)
+cleaner_class = TextCleaner()
+updated_apple_words = cleaner_class.compareRemove(stop_words_list, apple_words)
+
+#clean apple_words from duplicates by calling removeDuplicates() function
+unique_apple_words = cleaner_class.removeDuplicates(updated_apple_words)
+
 
 #loop over the copy list by comparing words from the unique list and counting word frequency
 for i in range(0, len(apple_words)):
