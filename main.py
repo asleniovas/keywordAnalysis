@@ -42,9 +42,9 @@ stop_words_list = list(nltk.corpus.stopwords.words("english"))
 # |   STEP 1 - TEXT FILE LOCATION AND OPENING   |
 # |                                             |
 
-#set text file location and open, mine is in downloads
-downloads = os.path.join(os.path.expanduser("~"), "Downloads")
-filePath = os.path.join(downloads, "Apple_Event_2019_09.txt")
+#set text file location and open, mine is in Documents
+repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
+filePath = os.path.join(repo, "Apple_Event_2019_09.txt")
 
 apple_file = open(filePath, encoding='utf-8-sig')
 
@@ -112,7 +112,8 @@ apple_file.close()
 # |    STEP X - WORD CLOUD VISUALISATION    |
 # |                                         |
 
-apple_mask = np.array(Image.open("C:/Users/asleniovas/Documents/repos/keywordAnalysis/apple.png"))
+apple_logo = os.path.join(repo, "apple.png")
+apple_mask = np.array(Image.open(apple_logo))
 
 #generating the word cloud
 wc = WordCloud(background_color="white", max_words=100, mask=apple_mask)
