@@ -37,6 +37,10 @@ apple_words = []
 #generate stop words array with help of NLTK
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
+#add custom stop words. Youtube specific transcripts have [Applause] and [Music] for example
+new_stop_words = ["[Applause]", "[Music]"]
+stop_words_list = stop_words_list + new_stop_words
+
 
 # |_                                           _|
 # |   STEP 1 - TEXT FILE LOCATION AND OPENING   |
