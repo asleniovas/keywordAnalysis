@@ -52,9 +52,6 @@ apple_file = open(filePath, encoding='utf-8-sig')
 for x in apple_file.read().split():
     apple_words.append(x)
 
-#make a copy of the list so we can count word frequencies once we clean the original list of dupes and other clutter
-copy_apple_words = apple_words.copy()
-
 
 # |_                                            _|
 # |   STEP 2 - TEXT CLEANING AND NORMALISATION   |
@@ -65,7 +62,10 @@ copy_apple_words = apple_words.copy()
 cleaner_class = TextCleaner()
 updated_apple_words = cleaner_class.compareRemove(stop_words_list, apple_words)
 
-#clean apple_words from duplicates by calling removeDuplicates() function
+# ---- ADDITIONAL CLEANING REQUIRED HERE
+
+#make a copy of the list so we can count word frequencies once we clean the original list of dupes and other clutter
+copy_apple_words = updated_apple_words.copy()
 unique_apple_words = cleaner_class.removeDuplicates(updated_apple_words)
 
 
