@@ -48,9 +48,13 @@ filePath = os.path.join(repo, "Apple_Event_2019_09.txt")
 
 apple_file = open(filePath, encoding='utf-8-sig')
 
+#convert all words to lowercase
 #loop through file and append all the words to the apple_words array
 for x in apple_file.read().split():
-    apple_words.append(x)
+
+    lowercse = x.lower()
+    apple_words.append(lowercse)
+
 
 
 # |_                                            _|
