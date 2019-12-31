@@ -38,7 +38,7 @@ apple_words = []
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
 #add custom stop words. Youtube specific transcripts have [Applause] and [Music] for example
-new_stop_words = ["[Applause]", "[Music]"]
+new_stop_words = ["[applause]", "[music]"]
 stop_words_list = stop_words_list + new_stop_words
 
 
