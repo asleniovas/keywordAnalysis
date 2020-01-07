@@ -33,6 +33,7 @@ word_counter = 0
 counter = 0
 total_word_frequency = 0
 apple_words = []
+apple_dictionary = {}
 
 #generate stop words array with help of NLTK
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
@@ -85,9 +86,13 @@ for i in range(0, len(unique_apple_words)):
         if unique_apple_words[i] == copy_apple_words[k]:
             word_counter += 1
 
-    word_count_list.append(word_counter)
+    #append word and frequency to dictionary item
+    apple_dictionary[unique_apple_words[i]] = word_counter
+
+    #word_count_list.append(word_counter)
     word_counter = 0
 
+print(apple_dictionary)
 
 #sort word frequencies in descending order
 for word_count in range(0, len(word_count_list)):
