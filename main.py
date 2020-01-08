@@ -39,8 +39,8 @@ apple_dictionary = {}
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
 #add custom stop words. Youtube specific transcripts have [Applause] and [Music] for example
-#and apple context words
-new_stop_words = ["[applause]", "[music]", "apple", "ipad", "iphone"]
+#as well as apple context words and others found during first processings
+new_stop_words = ["[applause]", "[music]", "apple", "ipad", "iphone", "we're", "that's", "we've"]
 stop_words_list = stop_words_list + new_stop_words
 
 
@@ -52,15 +52,16 @@ stop_words_list = stop_words_list + new_stop_words
 repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
 filePath = os.path.join(repo, "Apple_Event_2019_09.txt")
 
-apple_file = open(filePath, encoding='utf-8-sig')
+apple_words = open(filePath, encoding='utf-8-sig').read().lower().split()
 
 #convert all words to lowercase
+#text_lowrcs = apple_file.lower()
 #loop through file and append all the words to the apple_words array
-for x in apple_file.read().split():
+#for x in apple_file.read().split():
 
-    lowercse = x.lower()
-    apple_words.append(lowercse)
-
+    #lowercse = x.lower()
+    #apple_words.append(lowercse)
+print(apple_words)
 
 
 # |_                                            _|
@@ -92,9 +93,8 @@ for i in range(0, len(unique_apple_words)):
     #word_count_list.append(word_counter)
     word_counter = 0
 
-print(apple_dictionary)
-
 #sort word frequencies in descending order
+'''
 for word_count in range(0, len(word_count_list)):
     for other_word_count in range(word_count + 1, len(word_count_list)):
 
@@ -109,17 +109,17 @@ for word_count in range(0, len(word_count_list)):
             tmp2 = unique_apple_words[word_count]
             unique_apple_words[word_count] = unique_apple_words[other_word_count]
             unique_apple_words[other_word_count] = tmp2
-
+'''
 
 #print 10 top used words in descending order
 #print(word_count_list[:21])
 #print(unique_apple_words[:21])            
 
 #convert word_count_list and unique_apple_words to a dictionary for word cloud generation
-apple_dictionary = cleaner_class.arraysToDict(unique_apple_words, word_count_list)
+#apple_dictionary = cleaner_class.arraysToDict(unique_apple_words, word_count_list)
 
 #close the file when finished
-apple_file.close()
+#apple_file.close()
 
 
 # |_                                       _|
@@ -130,7 +130,7 @@ apple_logo = os.path.join(repo, "apple.png")
 apple_mask = np.array(Image.open(apple_logo))
 
 #generating the word cloud
-wc = WordCloud(background_color="white", max_words=100, mask=apple_mask)
+wc = WordCloud(background_color="white", max_words=50, mask=apple_mask)
 wc.generate_from_frequencies(apple_dictionary)
 
 plt.imshow(wc, interpolation="bilinear")
