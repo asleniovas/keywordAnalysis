@@ -51,17 +51,8 @@ stop_words_list = stop_words_list + new_stop_words
 #set text file location and open, mine is in Documents
 repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
 filePath = os.path.join(repo, "Apple_Event_2019_09.txt")
-
+#open file, convert to lowercase and split each word creating a list
 apple_words = open(filePath, encoding='utf-8-sig').read().lower().split()
-
-#convert all words to lowercase
-#text_lowrcs = apple_file.lower()
-#loop through file and append all the words to the apple_words array
-#for x in apple_file.read().split():
-
-    #lowercse = x.lower()
-    #apple_words.append(lowercse)
-print(apple_words)
 
 
 # |_                                            _|
