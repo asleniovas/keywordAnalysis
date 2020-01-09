@@ -7,8 +7,7 @@ import os
 
 #2 ~ natural language processing toolkit - NLTK
 import nltk 
-#download relevant NLTK data, this needs to be done just once for first time users
-#alternatively you can also use the command line to download whatever NLTK data package you need 
+#download relevant NLTK data, this needs to be done once for first time users 
 #see https://www.nltk.org/data.html
 
 #nltk.download('all')
@@ -28,9 +27,8 @@ from textCleaner import TextCleaner
 # |   MAIN CODE   |
 # |               |
 
-#variable and object declarations
+#variable declarations
 word_counter = 0
-counter = 0
 file_strings = []
 string_dictionary = {}
 
@@ -54,7 +52,7 @@ stop_words_list = stop_words_list + new_stop_words
 repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
 file_path = os.path.join(repo, "Apple_Event_2019_09.txt")
 #open file, convert to lowercase and split each word creating a list
-file_open = open(file_path, encoding='utf-8-sig')
+file_open = open(file_path, encoding="utf-8-sig")
 file_strings = file_open.read().lower().split()
 #close the opened file
 file_open.close()
@@ -86,34 +84,6 @@ for i in range(0, len(unique_file_strings)):
 
     #word_count_list.append(word_counter)
     word_counter = 0
-
-#sort word frequencies in descending order
-'''
-for word_count in range(0, len(word_count_list)):
-    for other_word_count in range(word_count + 1, len(word_count_list)):
-
-        if word_count_list[word_count] < word_count_list[other_word_count]:
-            
-            #swap elements in frequency list
-            tmp = word_count_list[word_count]
-            word_count_list[word_count] = word_count_list[other_word_count]
-            word_count_list[other_word_count] = tmp
-
-            #swap elements in unique word list to correspond to word_count_list
-            tmp2 = unique_apple_words[word_count]
-            unique_apple_words[word_count] = unique_apple_words[other_word_count]
-            unique_apple_words[other_word_count] = tmp2
-'''
-
-#print 10 top used words in descending order
-#print(word_count_list[:21])
-#print(unique_apple_words[:21])            
-
-#convert word_count_list and unique_apple_words to a dictionary for word cloud generation
-#apple_dictionary = cleaner_class.arraysToDict(unique_apple_words, word_count_list)
-
-#close the file when finished
-#apple_file.close()
 
 
 # |_                                       _|
