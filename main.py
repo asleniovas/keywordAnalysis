@@ -29,12 +29,10 @@ from textCleaner import TextCleaner
 # |               |
 
 #variable and object declarations
-word_count_list = []
 word_counter = 0
 counter = 0
-total_word_frequency = 0
 file_strings = []
-apple_dictionary = {}
+string_dictionary = {}
 
 #generate stop words array with help of NLTK
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
@@ -68,24 +66,23 @@ file_open.close()
 
 #clean apple words from stop words by calling compareRemove() function
 cleaner_class = TextCleaner()
-updated_apple_words = cleaner_class.compareRemove(stop_words_list, file_strings)
+updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
 
-# ---- ADDITIONAL CLEANING REQUIRED HERE
 
 #make a copy of the list so we can count word frequencies once we clean the original list of dupes and other clutter
-copy_apple_words = updated_apple_words.copy()
-unique_apple_words = cleaner_class.removeDuplicates(updated_apple_words)
+copy_file_strings = updated_file_strings.copy()
+unique_file_strings = cleaner_class.removeDuplicates(updated_file_strings)
 
 
 #loop over the copy list by comparing words from the unique list and counting word frequency
-for i in range(0, len(unique_apple_words)):
-    for k in range(0, len(copy_apple_words)):
+for i in range(0, len(unique_file_strings)):
+    for k in range(0, len(copy_file_strings)):
 
-        if unique_apple_words[i] == copy_apple_words[k]:
+        if unique_file_strings[i] == copy_file_strings[k]:
             word_counter += 1
 
     #append word and frequency to dictionary item
-    apple_dictionary[unique_apple_words[i]] = word_counter
+    string_dictionary[unique_file_strings[i]] = word_counter
 
     #word_count_list.append(word_counter)
     word_counter = 0
@@ -128,7 +125,7 @@ apple_mask = np.array(Image.open(apple_logo))
 
 #generating the word cloud
 wc = WordCloud(background_color="white", max_words=50, mask=apple_mask)
-wc.generate_from_frequencies(apple_dictionary)
+wc.generate_from_frequencies(string_dictionary)
 
 plt.imshow(wc, interpolation="bilinear")
 plt.axis("off")
