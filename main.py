@@ -32,7 +32,7 @@ word_count_list = []
 word_counter = 0
 counter = 0
 total_word_frequency = 0
-apple_words = []
+fileStrings = []
 apple_dictionary = {}
 
 #generate stop words array with help of NLTK
@@ -52,8 +52,10 @@ stop_words_list = stop_words_list + new_stop_words
 repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
 filePath = os.path.join(repo, "Apple_Event_2019_09.txt")
 #open file, convert to lowercase and split each word creating a list
-apple_words = open(filePath, encoding='utf-8-sig').read().lower().split()
-
+fileOpen = open(filePath, encoding='utf-8-sig')
+fileStrings = fileOpen.read().lower().split()
+#close the opened file
+fileOpen.close()
 
 # |_                                            _|
 # |   STEP 2 - TEXT CLEANING AND NORMALISATION   |
@@ -62,7 +64,7 @@ apple_words = open(filePath, encoding='utf-8-sig').read().lower().split()
 
 #clean apple words from stop words by calling compareRemove() function
 cleaner_class = TextCleaner()
-updated_apple_words = cleaner_class.compareRemove(stop_words_list, apple_words)
+updated_apple_words = cleaner_class.compareRemove(stop_words_list, fileStrings)
 
 # ---- ADDITIONAL CLEANING REQUIRED HERE
 
