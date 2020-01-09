@@ -2,26 +2,27 @@
 # |   REQUIRED LIBRARIES   |
 # |                        |
 
-
 #1 ~ for cross-platform file location
 import os
 
-#2 ~ our class from other file that holds various text cleaning methods
-from textCleaner import TextCleaner
-
-#3 ~ natural language processing toolkit - NLTK
+#2 ~ natural language processing toolkit - NLTK
 import nltk 
 #download relevant NLTK data, this needs to be done just once for first time users
-#alternatively you can also use the command line to download whatever NLTK data package you need see https://www.nltk.org/data.html
+#alternatively you can also use the command line to download whatever NLTK data package you need 
+#see https://www.nltk.org/data.html
+
 #nltk.download('all')
 
-#4 ~ for generating word clouds
+#3 ~ for generating word clouds
 from wordcloud import WordCloud
 
-#5 ~ for image processing with WordCloud
+#4 ~ for image processing with WordCloud
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
+
+#5 ~ our class from other file that holds various text cleaning methods
+from textCleaner import TextCleaner
 
 # |_             _|
 # |   MAIN CODE   |
@@ -32,7 +33,7 @@ word_count_list = []
 word_counter = 0
 counter = 0
 total_word_frequency = 0
-fileStrings = []
+file_strings = []
 apple_dictionary = {}
 
 #generate stop words array with help of NLTK
@@ -40,7 +41,10 @@ stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
 #add custom stop words. Youtube specific transcripts have [Applause] and [Music] for example
 #as well as apple context words and others found during first processings
-new_stop_words = ["[applause]", "[music]", "apple", "ipad", "iphone", "we're", "that's", "we've", "let's", "pro"]
+new_stop_words = ["[applause]", "[music]", "apple", "ipad", 
+                  "iphone", "we're", "that's", 
+                  "we've", "let's", "pro"]
+
 stop_words_list = stop_words_list + new_stop_words
 
 
@@ -50,12 +54,12 @@ stop_words_list = stop_words_list + new_stop_words
 
 #set text file location and open, mine is in Documents
 repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
-filePath = os.path.join(repo, "Apple_Event_2019_09.txt")
+file_path = os.path.join(repo, "Apple_Event_2019_09.txt")
 #open file, convert to lowercase and split each word creating a list
-fileOpen = open(filePath, encoding='utf-8-sig')
-fileStrings = fileOpen.read().lower().split()
+file_open = open(file_path, encoding='utf-8-sig')
+file_strings = file_open.read().lower().split()
 #close the opened file
-fileOpen.close()
+file_open.close()
 
 # |_                                            _|
 # |   STEP 2 - TEXT CLEANING AND NORMALISATION   |
@@ -64,7 +68,7 @@ fileOpen.close()
 
 #clean apple words from stop words by calling compareRemove() function
 cleaner_class = TextCleaner()
-updated_apple_words = cleaner_class.compareRemove(stop_words_list, fileStrings)
+updated_apple_words = cleaner_class.compareRemove(stop_words_list, file_strings)
 
 # ---- ADDITIONAL CLEANING REQUIRED HERE
 
