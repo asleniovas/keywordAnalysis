@@ -38,8 +38,8 @@ stop_words_list = list(nltk.corpus.stopwords.words("english"))
 #add custom stop words. Youtube specific transcripts have [Applause] and [Music] for example
 #as well as apple context words and others found during first processings
 new_stop_words = ["[applause]", "[music]", "apple", "ipad", 
-                  "iphone", "we're", "that's", 
-                  "we've", "let's", "pro"]
+                  "iphone", "we're", "that's", "11", "thank",
+                  "like", "we've", "let's", "pro"]
 
 stop_words_list = stop_words_list + new_stop_words
 
@@ -93,7 +93,7 @@ png_image = os.path.join(repo, "apple.png")
 png_mask = np.array(Image.open(png_image))
 
 #generating the word cloud
-wc = WordCloud(background_color="white", max_words=50, mask=png_image)
+wc = WordCloud(background_color="black", max_words=50, mask=png_mask)
 wc.generate_from_frequencies(string_dictionary)
 
 plt.imshow(wc, interpolation="bilinear")
