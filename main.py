@@ -20,8 +20,9 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 
-#5 ~ our class from other file that holds various text cleaning methods
+#5 ~ our classes from other files that hold various text cleaning and manipulation methods
 from textCleaner import TextCleaner
+from textCounter import TextCounter
 
 # |_             _|
 # |   MAIN CODE   |
@@ -71,19 +72,9 @@ updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings
 copy_file_strings = updated_file_strings.copy()
 unique_file_strings = cleaner_class.removeDuplicates(updated_file_strings)
 
-
-#loop over the copy list by comparing words from the unique list and counting word frequency
-for i in range(0, len(unique_file_strings)):
-    for k in range(0, len(copy_file_strings)):
-
-        if unique_file_strings[i] == copy_file_strings[k]:
-            word_counter += 1
-
-    #append word and frequency to dictionary item
-    string_dictionary[unique_file_strings[i]] = word_counter
-
-    word_counter = 0
-
+#producing a dictionary with word occurrences 
+counter_class = TextCounter()
+string_dictionary = counter_class.countElements(copy_file_strings)
 
 # |_                                       _|
 # |    STEP X - WORD CLOUD VISUALISATION    |
