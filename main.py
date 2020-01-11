@@ -52,18 +52,21 @@ stop_words_list = stop_words_list + new_stop_words
 #set text file location and open, mine is in Documents
 repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
 file_path = os.path.join(repo, "Apple_Event_2019_09.txt")
-#open file, convert to lowercase and split each word creating a list
+
 file_open = open(file_path, encoding="utf-8-sig")
-file_strings = file_open.read().lower().split()
-#close the opened file
-file_open.close()
+
 
 # |_                                            _|
 # |   STEP 2 - TEXT CLEANING AND NORMALISATION   |
 # |                                              |
 
+#convert to lowercase and split text into words
+file_strings = file_open.read().lower().split()
 
-#clean apple words from stop words by calling compareRemove() function
+#close the file after producing required array
+file_open.close()
+
+#clean words from stop words by calling compareRemove() function
 cleaner_class = TextCleaner()
 updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
 
