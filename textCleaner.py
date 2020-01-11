@@ -18,7 +18,8 @@ class TextCleaner:
         while i < array1_length:
             while j < array2_length:
 
-                #compare element from first array to second array, remove element if same, and update second array length
+                #compare element from first array to second array, remove element if same, 
+                #and update second array length
                 if array1[i] == array2[j]:
 
                     del array2[j]
@@ -38,14 +39,13 @@ class TextCleaner:
     #function removes duplicates from single array
     def removeDuplicates(self, array1 = []):
 
-        #starting iteration values
+        #starting loop values
         i = 0
         j = i + 1
 
-        #determining array length
+        #determining initial array length
         array1_length = len(array1)
 
-        #loop through given array by comparing i element if it occurs further in array and remove
         while i < array1_length:
             while j < array1_length:
 
@@ -62,15 +62,3 @@ class TextCleaner:
             j = i + 1
 
         return array1
-
-    #function turns 1 array with keys and 2nd array with values into dictionary 
-    def arraysToDict(self, keysArray = [], valuesArray = []):
-
-        #initilize empty dictionary
-        dictionary1 = {}
-
-        #loop through all keys by adding them and their values to the dict
-        for i in range(0, len(keysArray)):
-            dictionary1[keysArray[i]] = valuesArray[i]
-
-        return dictionary1  

@@ -93,7 +93,8 @@ png_image = os.path.join(repo, "apple.png")
 png_mask = np.array(Image.open(png_image))
 
 #generating the word cloud
-wc = WordCloud(background_color="black", max_words=50, mask=png_mask)
+wc = WordCloud(background_color="black", max_words=50, 
+               mask=png_mask, colormap="plasma")
 wc.generate_from_frequencies(string_dictionary)
 
 plt.imshow(wc, interpolation="bilinear")
