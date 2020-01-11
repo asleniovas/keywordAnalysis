@@ -5,7 +5,7 @@ class TextCounter:
     def __init__(self):
         pass
 
-    #function element occurences in array and returns a dictionary with counts
+    #function counts element occurences in array and returns a dictionary with counts
     def countElements(self, strings = []):
 
         counts_dict = Counter(strings)
