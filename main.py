@@ -50,13 +50,15 @@ stop_words_list = stop_words_list + new_stop_words
 # |                                             |
 
 
-text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", "Apple_Event_2019_09.txt"]
+text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
+              "Apple_Event_2019_09.txt"]
+dictionary_array = []
 
-for single_file in range(1, len(text_files)):
+for i in range(0, len(text_files)):
 
     #set text file location and open, mine is in Documents
     repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
-    file_path = os.path.join(repo, text_files[single_file])
+    file_path = os.path.join(repo, text_files[i])
 
     file_open = open(file_path, encoding="utf-8-sig").read()
 
@@ -68,9 +70,6 @@ for single_file in range(1, len(text_files)):
     text = file_open.translate(str.maketrans("", "", string.punctuation))
     file_strings = text.lower().split()
 
-    #close the file after producing required array
-    file_open.close()
-
     #clean words from stop words by calling compareRemove() function
     cleaner_class = TextCleaner()
     updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
@@ -78,6 +77,10 @@ for single_file in range(1, len(text_files)):
     #producing a dictionary with word occurrence counts
     counter_class = TextCounter()
     string_dictionary = counter_class.countElements(updated_file_strings)
+
+    #add final dictionary to array
+    dictionary_array.append(string_dictionary)
+ 
 
 # |_                                       _|
 # |    STEP X - WORD CLOUD VISUALISATION    |
