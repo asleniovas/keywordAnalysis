@@ -28,9 +28,6 @@ from textCounter import TextCounter
 # |   MAIN CODE   |
 # |               |
 
-#initial variable declarations
-file_strings = []
-string_dictionary = {}
 
 #generate stop words array with help of NLTK
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
@@ -42,6 +39,7 @@ new_stop_words = ["[applause]", "[music]", "apple", "ipad",
                   "like", "we've", "let's", "pro"]
 
 stop_words_list = stop_words_list + new_stop_words
+
 
 
 # |_                                           _|
