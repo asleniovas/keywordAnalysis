@@ -93,7 +93,7 @@ wc.generate_from_frequencies(string_dictionary)
 
 fig, (ax1, ax2) = plt.subplots(1, 2)
 
-plt.subplots_adjust(wspace=0)
+plt.subplots_adjust(wspace=-0.3)
 
 ax1.imshow(wc, interpolation="bilinear")
 ax2.imshow(wc, interpolation="bilinear")
