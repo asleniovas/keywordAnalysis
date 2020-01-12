@@ -28,8 +28,7 @@ from textCounter import TextCounter
 # |   MAIN CODE   |
 # |               |
 
-#variable declarations
-word_counter = 0
+#initial variable declarations
 file_strings = []
 string_dictionary = {}
 
@@ -37,7 +36,7 @@ string_dictionary = {}
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
 #add custom stop words. Youtube specific transcripts have [Applause] and [Music] for example
-#as well as apple context words and others found during first processings
+#as well as Apple context words and others found during first processings
 new_stop_words = ["[applause]", "[music]", "apple", "ipad", 
                   "iphone", "we're", "that's", "11", "thank",
                   "like", "we've", "let's", "pro"]
@@ -70,14 +69,9 @@ file_open.close()
 cleaner_class = TextCleaner()
 updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
 
-
-#make a copy of the list so we can count word frequencies once we clean the original list of dupes and other clutter
-copy_file_strings = updated_file_strings.copy()
-unique_file_strings = cleaner_class.removeDuplicates(updated_file_strings)
-
-#producing a dictionary with word occurrences 
+#producing a dictionary with word occurrence counts
 counter_class = TextCounter()
-string_dictionary = counter_class.countElements(copy_file_strings)
+string_dictionary = counter_class.countElements(updated_file_strings)
 
 # |_                                       _|
 # |    STEP X - WORD CLOUD VISUALISATION    |
