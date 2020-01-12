@@ -91,6 +91,12 @@ wc = WordCloud(background_color="black", max_words=50,
                mask=png_mask, colormap="plasma")
 wc.generate_from_frequencies(string_dictionary)
 
-plt.imshow(wc, interpolation="bilinear")
-plt.axis("off")
+fig, (ax1, ax2) = plt.subplots(1, 2)
+
+plt.subplots_adjust(wspace=0)
+
+ax1.imshow(wc, interpolation="bilinear")
+ax2.imshow(wc, interpolation="bilinear")
+ax1.axis("off")
+ax2.axis("off")
 plt.show()
