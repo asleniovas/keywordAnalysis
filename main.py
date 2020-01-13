@@ -92,14 +92,16 @@ png_mask = np.array(Image.open(png_image))
 #generating the word cloud
 wc = WordCloud(background_color="black", max_words=50, 
                mask=png_mask, colormap="plasma")
-wc.generate_from_frequencies(string_dictionary)
 
-fig, (ax1, ax2) = plt.subplots(1, 2)
+fig, axs = plt.subplots(1, len(dictionary_array))
+print(axs)
+
+for e in range(0, len(dictionary_array)):
+
+    wc.generate_from_frequencies(dictionary_array[e])
+    
+    axs[e].imshow(wc, interpolation="bilinear")
+    axs[e].axis("off")
 
 plt.subplots_adjust(wspace=-0.3)
-
-ax1.imshow(wc, interpolation="bilinear")
-ax2.imshow(wc, interpolation="bilinear")
-ax1.axis("off")
-ax2.axis("off")
 plt.show()
