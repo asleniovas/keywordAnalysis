@@ -54,6 +54,7 @@ text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt",
               "Apple_Event_2019_09.txt"]
 dictionary_array = []
 
+#loop through each text file, open and clean
 for i in range(0, len(text_files)):
 
     #set text file location and open, mine is in Documents
@@ -66,7 +67,7 @@ for i in range(0, len(text_files)):
 # |   STEP 2 - TEXT CLEANING AND NORMALISATION   |
 # |                                              |
 
-    #remove punctiation, convert to lowercase, and split words
+    #remove punctuation, convert to lowercase, and split words
     text = file_open.translate(str.maketrans("", "", string.punctuation))
     file_strings = text.lower().split()
 
@@ -89,13 +90,13 @@ for i in range(0, len(text_files)):
 png_image = os.path.join(repo, "apple.png")
 png_mask = np.array(Image.open(png_image))
 
-#generating the word cloud
+#instantiate the wordcloud with desired params
 wc = WordCloud(background_color="black", max_words=50, 
                mask=png_mask, colormap="plasma")
 
 fig, axs = plt.subplots(1, len(dictionary_array))
-print(axs)
 
+#loop through all dictionaries containing word occurences and plot
 for e in range(0, len(dictionary_array)):
 
     wc.generate_from_frequencies(dictionary_array[e])
