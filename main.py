@@ -41,9 +41,9 @@ stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
 #add custom stop words. Youtube specific transcripts have [Applause] and [Music] for example
 #as well as Apple context words and others found during first processings
-new_stop_words = ["[applause]", "[music]", "apple", "ipad", 
-                  "iphone", "we're", "that's", "11", "thank",
-                  "like", "we've", "let's", "pro"]
+new_stop_words = ["applause", "music", "apple", "ipad", "us", "gonna", "series", 
+                  "thank", "like", "weve", "lets", "pro", "im", "xs", "get", "theres",
+                  "iphone", "were", "thats", "11", "10", "8", "look", "4"]
 
 stop_words_list = stop_words_list + new_stop_words
 
@@ -77,8 +77,8 @@ for i in range(0, len(text_files)):
     updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
 
     #explore additional potental stopwords -> 
-    #by printing most frequently used words before data cleaning
-    print(pandas.Series(updated_file_strings).value_counts()[:20])
+    #by printing most frequently used words after initial cleaning
+    #print(pandas.Series(updated_file_strings).value_counts()[:20])
 
     #producing a dictionary with word occurrence counts
     counter_class = TextCounter()
@@ -96,7 +96,7 @@ png_image = os.path.join(repo, "apple.png")
 png_mask = np.array(Image.open(png_image))
 
 #instantiate the wordcloud with desired params
-wc = WordCloud(background_color="black", max_words=50, 
+wc = WordCloud(background_color="black", max_words=40, 
                mask=png_mask, colormap="plasma")
 
 fig, axs = plt.subplots(1, len(dictionary_array))
@@ -107,7 +107,10 @@ for e in range(0, len(dictionary_array)):
     wc.generate_from_frequencies(dictionary_array[e])
     
     axs[e].imshow(wc, interpolation="bilinear")
-    axs[e].axis("off")
+    #axs[e].axis("off")
+    axs[e].set_xlabel("Test", color="black")
+    axs[e].set_xticklabels([])
+    axs[e].set_yticklabels([])
 
 plt.subplots_adjust(wspace=-0.3)
 plt.show()
