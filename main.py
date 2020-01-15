@@ -14,6 +14,7 @@ import nltk
 
 #3 for quick string manipulations
 import string
+import pandas
 
 #4 ~ for generating word clouds
 from wordcloud import WordCloud
@@ -32,6 +33,9 @@ from textCounter import TextCounter
 # |               |
 
 
+text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
+              "Apple_Event_2019_09.txt"]
+
 #generate stop words array with help of NLTK
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
@@ -49,9 +53,6 @@ stop_words_list = stop_words_list + new_stop_words
 # |   STEP 1 - TEXT FILE LOCATION AND OPENING   |
 # |                                             |
 
-
-text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
-              "Apple_Event_2019_09.txt"]
 dictionary_array = []
 
 #loop through each text file, open and clean
@@ -74,6 +75,10 @@ for i in range(0, len(text_files)):
     #clean words from stop words by calling compareRemove() function
     cleaner_class = TextCleaner()
     updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
+
+    #explore additional potental stopwords -> 
+    #by printing most frequently used words before data cleaning
+    print(pandas.Series(updated_file_strings).value_counts()[:20])
 
     #producing a dictionary with word occurrence counts
     counter_class = TextCounter()
