@@ -109,13 +109,14 @@ for e in range(0, len(dictionary_array)):
     axs[e].imshow(wc, interpolation="bilinear")
 
     #x-axis tick params
-    axs[e].set_xlabel("Test", color="black")
+    axs[e].set_xlabel(text_files[e][12:16], color="#f5f5f7", fontfamily="sans-serif")
     axs[e].set_xticklabels([])
     axs[e].set_xticks([])
+    axs[e].xaxis.set_label_coords(0.5, 0.20)
 
     #y-axis tick params
     axs[e].set_yticklabels([])
-    axs[e].setyticks([])
+    axs[e].set_yticks([])
 
 plt.subplots_adjust(wspace=-0.3)
 plt.show()
