@@ -100,6 +100,8 @@ wc = WordCloud(background_color="black", max_words=40,
                mask=png_mask, colormap="plasma")
 
 fig, axs = plt.subplots(1, len(dictionary_array))
+fig.suptitle("Apple September Event Most Frequently Used Words",
+             color="#f5f5f7", horizontalalignment="center", x=0.5, y=0.75)
 
 #loop through all dictionaries containing word occurences and plot
 for e in range(0, len(dictionary_array)):
