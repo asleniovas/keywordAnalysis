@@ -107,10 +107,15 @@ for e in range(0, len(dictionary_array)):
     wc.generate_from_frequencies(dictionary_array[e])
     
     axs[e].imshow(wc, interpolation="bilinear")
-    #axs[e].axis("off")
+
+    #x-axis tick params
     axs[e].set_xlabel("Test", color="black")
     axs[e].set_xticklabels([])
+    axs[e].set_xticks([])
+
+    #y-axis tick params
     axs[e].set_yticklabels([])
+    axs[e].setyticks([])
 
 plt.subplots_adjust(wspace=-0.3)
 plt.show()
