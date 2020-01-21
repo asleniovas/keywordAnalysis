@@ -28,97 +28,90 @@ import matplotlib.pyplot as plt
 from textCleaner import TextCleaner
 from textCounter import TextCounter
 
-# |_             _|
-# |   MAIN CODE   |
-# |               |
+#main function, returns an array of dictionaries
+def cleanTextFiles (repo, text_files = [], stop_words_list = []):
 
+    dictionary_array = []
 
-text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
-              "Apple_Event_2019_09.txt"]
+    #loop through each text file, open and clean
+    for i in range(0, len(text_files)):
 
-#generate stop words set with help of NLTK
-stop_words_list = list(nltk.corpus.stopwords.words("english"))
+        file_path = os.path.join(repo, text_files[i])
 
-#add custom stop words. Order is not important so->
-#to avoid duplicates we convert to set and back to list
-new_stop_words = ["applause", "music", "apple", "ipad", "us", "gonna", "series", 
+        file_open = open(file_path, encoding="utf-8-sig").read()
+
+        #remove punctuation, convert to lowercase, and split words
+        text = file_open.translate(str.maketrans("", "", string.punctuation))
+        file_strings = text.lower().split()
+
+        #clean words from stop words by calling compareRemove() function
+        cleaner_class = TextCleaner()
+        updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
+
+        #explore additional potental stopwords -> 
+        #by printing most frequently used words after initial cleaning
+        #print(pandas.Series(updated_file_strings).value_counts()[:20])
+
+        #producing a dictionary with word occurrence counts
+        counter_class = TextCounter()
+        string_dictionary = counter_class.countElements(updated_file_strings)
+
+        #add final dictionary to array
+        dictionary_array.append(string_dictionary)
+
+    return dictionary_array
+
+#main code
+if __name__ == "__main__":
+
+    text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
+                  "Apple_Event_2019_09.txt"]
+
+    #generate stop words set with help of NLTK
+    stop_words_list = list(nltk.corpus.stopwords.words("english"))
+
+    #add custom stop words. Order is not important so->
+    #to avoid duplicates we convert to set and back to list
+    new_stop_words = ["applause", "music", "apple", "ipad", "us", "gonna", "series", 
                   "thank", "like", "weve", "lets", "pro", "im", "xs", "get", "theres",
                   "iphone", "were", "thats", "11", "10", "8", "look", "4"]
 
-stop_words_list = list(set(stop_words_list + new_stop_words))
+    stop_words_list = list(set(stop_words_list + new_stop_words))
 
-
-
-# |_                                           _|
-# |   STEP 1 - TEXT FILE LOCATION AND OPENING   |
-# |                                             |
-
-dictionary_array = []
-
-#loop through each text file, open and clean
-for i in range(0, len(text_files)):
-
-    #set text file location and open, mine is in Documents
+    #set text file location, mine is in Documents
     repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
-    file_path = os.path.join(repo, text_files[i])
 
-    file_open = open(file_path, encoding="utf-8-sig").read()
+    #call cleanText function
+    dictionary_array = cleanTextFiles(text_files, stop_words_list, repo)
 
-# |_                                            _|
-# |   STEP 2 - TEXT CLEANING AND NORMALISATION   |
-# |                                              |
+    #start visualisation with image processing
+    png_image = os.path.join(repo, "apple.png")
+    png_mask = np.array(Image.open(png_image))
 
-    #remove punctuation, convert to lowercase, and split words
-    text = file_open.translate(str.maketrans("", "", string.punctuation))
-    file_strings = text.lower().split()
+    #instantiate the wordcloud with desired params
+    wc = WordCloud(background_color="black", max_words=40, 
+                   mask=png_mask, colormap="plasma")
 
-    #clean words from stop words by calling compareRemove() function
-    cleaner_class = TextCleaner()
-    updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
+    fig, axs = plt.subplots(1, len(dictionary_array))
+    fig.suptitle("Apple September Event Most Frequently Used Words",
+                 color="#f5f5f7", horizontalalignment="center", x=0.5, y=0.75)
 
-    #explore additional potental stopwords -> 
-    #by printing most frequently used words after initial cleaning
-    #print(pandas.Series(updated_file_strings).value_counts()[:20])
+    #loop through all dictionaries containing word occurences and plot
+    for e in range(0, len(dictionary_array)):
 
-    #producing a dictionary with word occurrence counts
-    counter_class = TextCounter()
-    string_dictionary = counter_class.countElements(updated_file_strings)
-
-    #add final dictionary to array
-    dictionary_array.append(string_dictionary)
- 
-
-# |_                                       _|
-# |    STEP X - WORD CLOUD VISUALISATION    |
-# |                                         |
-
-png_image = os.path.join(repo, "apple.png")
-png_mask = np.array(Image.open(png_image))
-
-#instantiate the wordcloud with desired params
-wc = WordCloud(background_color="black", max_words=40, 
-               mask=png_mask, colormap="plasma")
-
-fig, axs = plt.subplots(1, len(dictionary_array))
-fig.suptitle("Apple September Event Most Frequently Used Words",
-             color="#f5f5f7", horizontalalignment="center", x=0.5, y=0.75)
-
-#loop through all dictionaries containing word occurences and plot
-for e in range(0, len(dictionary_array)):
-
-    wc.generate_from_frequencies(dictionary_array[e])
+        wc.generate_from_frequencies(dictionary_array[e])
     
-    axs[e].imshow(wc, interpolation="bilinear")
+        axs[e].imshow(wc, interpolation="bilinear")
 
-    #x-axis tick params
-    axs[e].set_xlabel(text_files[e][12:16], color="#f5f5f7", fontfamily="sans-serif")
-    axs[e].set_xticklabels([])
-    axs[e].set_xticks([])
-    axs[e].xaxis.set_label_coords(0.5, 0.20)
+        #x-axis tick params
+        axs[e].set_xlabel(text_files[e][12:16], color="#f5f5f7", fontfamily="sans-serif")
+        axs[e].set_xticklabels([])
+        axs[e].set_xticks([])
+        axs[e].xaxis.set_label_coords(0.5, 0.20)
 
-    #y-axis tick params
-    axs[e].set_yticklabels([])
-    axs[e].set_yticks([])
+        #y-axis tick params
+        axs[e].set_yticklabels([])
+        axs[e].set_yticks([])
 
-plt.subplots_adjust(wspace=-0.3)
-plt.show()
+    plt.subplots_adjust(wspace=-0.3)
+    plt.show()
