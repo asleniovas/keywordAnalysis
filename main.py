@@ -36,16 +36,16 @@ from textCounter import TextCounter
 text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
               "Apple_Event_2019_09.txt"]
 
-#generate stop words array with help of NLTK
+#generate stop words set with help of NLTK
 stop_words_list = list(nltk.corpus.stopwords.words("english"))
 
-#add custom stop words. Youtube specific transcripts have [Applause] and [Music] for example
-#as well as Apple context words and others found during first processings
+#add custom stop words. Order is not important so->
+#to avoid duplicates we convert to set and back to list
 new_stop_words = ["applause", "music", "apple", "ipad", "us", "gonna", "series", 
                   "thank", "like", "weve", "lets", "pro", "im", "xs", "get", "theres",
                   "iphone", "were", "thats", "11", "10", "8", "look", "4"]
 
-stop_words_list = stop_words_list + new_stop_words
+stop_words_list = list(set(stop_words_list + new_stop_words))
 
 
 
