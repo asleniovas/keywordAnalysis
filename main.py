@@ -48,7 +48,7 @@ def cleanTextFiles (repo, text_files = [], stop_words_list = []):
         cleaner_class = TextCleaner()
         updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
 
-        #explore additional potental stopwords -> 
+        #explore additional potential stopwords -> 
         #by printing most frequently used words after initial cleaning
         #print(pandas.Series(updated_file_strings).value_counts()[:20])
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
 
     #call cleanText function
-    dictionary_array = cleanTextFiles(text_files, stop_words_list, repo)
+    dictionary_array = cleanTextFiles(repo, text_files, stop_words_list)
 
     #start visualisation with image processing
     png_image = os.path.join(repo, "apple.png")
@@ -96,7 +96,7 @@ if __name__ == "__main__":
     fig.suptitle("Apple September Event Most Frequently Used Words",
                  color="#f5f5f7", horizontalalignment="center", x=0.5, y=0.75)
 
-    #loop through all dictionaries containing word occurences and plot
+    #loop through all dictionaries containing word counts and plot
     for e in range(0, len(dictionary_array)):
 
         wc.generate_from_frequencies(dictionary_array[e])
