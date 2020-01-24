@@ -41,7 +41,7 @@ def cleanTextFiles (repo, text_files = [], stop_words_list = []):
         file_open = open(file_path, encoding="utf-8-sig").read()
 
         #remove punctuation, convert to lowercase, and split words
-        text = file_open.translate(str.maketrans("", "", string.punctuation))
+        text = file_open.translate(str.maketrans("", "", string.punctuation.replace("'","")))
         file_strings = text.lower().split()
 
         #clean words from stop words by calling compareRemove() function
