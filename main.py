@@ -45,8 +45,8 @@ def cleanTextFiles (repo, text_files = [], stop_words_list = []):
         file_strings = text.lower().split()
 
         #clean words from stop words by calling compareRemove() function
-        cleaner_class = TextCleaner()
-        updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
+        #cleaner_class = TextCleaner()
+        #updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
 
         #explore additional potential stopwords -> 
         #by printing most frequently used words after initial cleaning
@@ -54,7 +54,7 @@ def cleanTextFiles (repo, text_files = [], stop_words_list = []):
 
         #producing a dictionary with word occurrence counts
         counter_class = TextCounter()
-        string_dictionary = counter_class.countElements(updated_file_strings)
+        string_dictionary = counter_class.countElements(file_strings)
 
         #add final dictionary to array
         dictionary_array.append(string_dictionary)
@@ -73,8 +73,8 @@ if __name__ == "__main__":
     #add custom stop words. Order is not important so->
     #to avoid duplicates we convert to set and back to list
     new_stop_words = ["applause", "music", "apple", "ipad", "us", "gonna", "series", 
-                  "thank", "like", "weve", "lets", "pro", "im", "xs", "get", "theres",
-                  "iphone", "were", "thats", "11", "10", "8", "look", "4"]
+                  "thank", "like", "we've", "pro", "i'm", "xs", "get",
+                  "iphone", "we're", "thats", "11", "10", "8", "look", "4"]
 
     stop_words_list = list(set(stop_words_list + new_stop_words))
 
@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
     #instantiate the wordcloud with desired params
     wc = WordCloud(background_color="black", max_words=40, 
-                   mask=png_mask, colormap="plasma")
+                   mask=png_mask, colormap="plasma", stopwords=stop_words_list)
 
     fig, axs = plt.subplots(1, len(dictionary_array))
     fig.suptitle("Apple September Event Most Frequently Used Words",
