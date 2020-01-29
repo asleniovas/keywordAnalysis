@@ -29,7 +29,7 @@ from textCleaner import TextCleaner
 from textCounter import TextCounter
 
 #main function, returns an array of dictionaries
-def cleanTextFiles (repo, text_files = [], stop_words_list = {}):
+def cleanTextFiles (repo, text_files = [], stop_words = {}):
 
     dictionary_array = []
 
@@ -44,10 +44,10 @@ def cleanTextFiles (repo, text_files = [], stop_words_list = {}):
         text = file_open.translate(str.maketrans("", "", string.punctuation.replace("'","")))
         file_strings = text.lower().split()
 
-        #clean words from stop words by calling compareRemove() function
-        #cleaner_class = TextCleaner()
-        #updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
-        updated_file_strings = [x for x in file_strings if x not in stop_words]
+        #clean file_strings from stop words by calling compareRemove() function
+        cleaner_class = TextCleaner()
+        updated_file_strings = cleaner_class.compareRemove(stop_words, file_strings)
+        
 
         #explore additional potential stopwords -> 
         #by printing most frequently used words after initial cleaning

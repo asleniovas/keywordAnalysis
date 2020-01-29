@@ -1,64 +1,14 @@
+#various text cleaning methods
 class TextCleaner:
 
     def __init__(self):
         pass
 
-    #function accepts 2 arrays. Compares elements from 1st array to 2nd to see if they exist in 2nd, 
-    #and removes them from 2nd array. 
-    def compareRemove(self, array1 = [], array2 = []):
+    #function accepts a set and array 
+    #removes elements from array that match elements in set 
+    def compareRemove(self, set1 = {}, array1 = []):
 
-        #starting iteration values
-        i = 0
-        j = 0
-
-        #determining array lengths
-        array1_length = len(array1)
-        array2_length = len(array2)
-
-        while i < array1_length:
-            while j < array2_length:
-
-                #compare element from first array to second array, remove element if same, 
-                #and update second array length
-                if array1[i] == array2[j]:
-
-                    del array2[j]
-                    array2_length = len(array2)
-
-                #otherwise move j forward
-                else:
-                    j = j + 1
-
-            #when 2nd while loop is done move i forward and reset j to 0
-            i = i + 1
-            j = 0
-
+        #using list comprehension with set for performance
+        array2 = [x for x in array1 if x not in set1]
+        
         return array2
-
-
-    #function removes duplicates from single array
-    def removeDuplicates(self, array1 = []):
-
-        #starting loop values
-        i = 0
-        j = i + 1
-
-        #determining initial array length
-        array1_length = len(array1)
-
-        while i < array1_length:
-            while j < array1_length:
-
-                #if true remove and update array length
-                if array1[i] == array1[j]:
-                    del array1[j]
-                    array1_length = len(array1)
-                
-                #otherwise move forward in array with j
-                else:
-                    j = j + 1
-            
-            i = i + 1
-            j = i + 1
-
-        return array1
