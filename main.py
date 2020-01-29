@@ -29,7 +29,7 @@ from textCleaner import TextCleaner
 from textCounter import TextCounter
 
 #main function, returns an array of dictionaries
-def cleanTextFiles (repo, text_files = [], stop_words_list = []):
+def cleanTextFiles (repo, text_files = [], stop_words_list = {}):
 
     dictionary_array = []
 
@@ -47,6 +47,7 @@ def cleanTextFiles (repo, text_files = [], stop_words_list = []):
         #clean words from stop words by calling compareRemove() function
         #cleaner_class = TextCleaner()
         #updated_file_strings = cleaner_class.compareRemove(stop_words_list, file_strings)
+        updated_file_strings = [x for x in file_strings if x not in stop_words]
 
         #explore additional potential stopwords -> 
         #by printing most frequently used words after initial cleaning
@@ -54,7 +55,7 @@ def cleanTextFiles (repo, text_files = [], stop_words_list = []):
 
         #producing a dictionary with word occurrence counts
         counter_class = TextCounter()
-        string_dictionary = counter_class.countElements(file_strings)
+        string_dictionary = counter_class.countElements(updated_file_strings)
 
         #add final dictionary to array
         dictionary_array.append(string_dictionary)
@@ -68,21 +69,20 @@ if __name__ == "__main__":
                   "Apple_Event_2019_09.txt"]
 
     #generate stop words set with help of NLTK
-    stop_words_list = list(nltk.corpus.stopwords.words("english"))
+    stop_words = set(nltk.corpus.stopwords.words("english"))
 
-    #add custom stop words. Order is not important so->
-    #to avoid duplicates we convert to set and back to list
-    new_stop_words = ["applause", "music", "apple", "ipad", "us", "gonna", "series", 
+    #add custom stop words. Order is not important so we use a set for performance
+    new_stop_words = {"applause", "music", "apple", "ipad", "us", "gonna", "series", 
                   "thank", "like", "we've", "pro", "i'm", "xs", "get",
-                  "iphone", "we're", "thats", "11", "10", "8", "look", "4"]
+                  "iphone", "we're", "thats", "11", "10", "8", "look", "4"}
 
-    stop_words_list = list(set(stop_words_list + new_stop_words))
+    stop_words = stop_words.union(new_stop_words)
 
     #set text file location, mine is in Documents
     repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
 
     #call cleanText function
-    dictionary_array = cleanTextFiles(repo, text_files, stop_words_list)
+    dictionary_array = cleanTextFiles(repo, text_files, stop_words)
 
     #start visualisation with image processing
     png_image = os.path.join(repo, "apple.png")
@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
     #instantiate the wordcloud with desired params
     wc = WordCloud(background_color="black", max_words=40, 
-                   mask=png_mask, colormap="plasma", stopwords=stop_words_list)
+                   mask=png_mask, colormap="plasma")
 
     fig, axs = plt.subplots(1, len(dictionary_array))
     fig.suptitle("Apple September Event Most Frequently Used Words",
