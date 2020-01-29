@@ -47,17 +47,11 @@ def cleanTextFiles (repo, text_files = [], stop_words = {}):
         #clean file_strings from stop words by calling compareRemove() function
         cleaner_class = TextCleaner()
         updated_file_strings = cleaner_class.compareRemove(stop_words, file_strings)
-        
-
-        #explore additional potential stopwords -> 
-        #by printing most frequently used words after initial cleaning
-        #print(pandas.Series(updated_file_strings).value_counts()[:20])
 
         #producing a dictionary with word occurrence counts
         counter_class = TextCounter()
         string_dictionary = counter_class.countElements(updated_file_strings)
 
-        #add final dictionary to array
         dictionary_array.append(string_dictionary)
 
     return dictionary_array
@@ -68,35 +62,31 @@ if __name__ == "__main__":
     text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
                   "Apple_Event_2019_09.txt"]
 
-    #generate stop words set with help of NLTK
+    #generate stop words set with help of NLTK and add custom ones
     stop_words = set(nltk.corpus.stopwords.words("english"))
-
-    #add custom stop words. Order is not important so we use a set for performance
     new_stop_words = {"applause", "music", "apple", "ipad", "us", "gonna", "series", 
-                  "thank", "like", "we've", "pro", "i'm", "xs", "get",
-                  "iphone", "we're", "thats", "11", "10", "8", "look", "4"}
-
+                      "thank", "like", "we've", "pro", "i'm", "xs", "get", "4",
+                      "iphone", "we're", "that's", "11", "10", "8", "look"}
+    
     stop_words = stop_words.union(new_stop_words)
 
-    #set text file location, mine is in Documents
+    #set text file location, and call the main function
     repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
-
-    #call cleanText function
     dictionary_array = cleanTextFiles(repo, text_files, stop_words)
 
-    #start visualisation with image processing
+    #initialize word cloud visualisation
     png_image = os.path.join(repo, "apple.png")
     png_mask = np.array(Image.open(png_image))
 
-    #instantiate the wordcloud with desired params
     wc = WordCloud(background_color="black", max_words=40, 
                    mask=png_mask, colormap="plasma")
 
+    #subplot quantity based on the number of text files processed
     fig, axs = plt.subplots(1, len(dictionary_array))
     fig.suptitle("Apple September Event Most Frequently Used Words",
                  color="#f5f5f7", horizontalalignment="center", x=0.5, y=0.75)
 
-    #loop through all dictionaries containing word counts and plot
+    #loop through the array returned by cleanTextFiles() and plot
     for e in range(0, len(dictionary_array)):
 
         wc.generate_from_frequencies(dictionary_array[e])
