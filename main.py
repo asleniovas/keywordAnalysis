@@ -1,4 +1,4 @@
-#---------------------------- REQUIRED LIBRARIES ----------------------------- 
+#---------------------------- REQUIRED LIBRARIES -----------------------------
 import os
 from PIL import Image
 import string
@@ -40,7 +40,7 @@ def cleanTextFiles (repo, text_files = [], stop_words = {}):
 
     return dictionary_array
 
-#---------------------------- MAIN CODE -----------------------------
+#--------------------------------- MAIN CODE ---------------------------------
 if __name__ == "__main__":
 
     text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
