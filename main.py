@@ -25,8 +25,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #6 ~ our classes from other files that hold various text cleaning and manipulation methods
-from textCleaner import TextCleaner
-from textCounter import TextCounter
+from modules.textCleaner import TextCleaner
+from modules.textCounter import TextCounter
 
 #main function, returns an array of dictionaries
 def cleanTextFiles (repo, text_files = [], stop_words = {}):
@@ -71,11 +71,13 @@ if __name__ == "__main__":
     stop_words = stop_words.union(new_stop_words)
 
     #set text file location, and call the main function
-    repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis")
+    repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis/data")
     dictionary_array = cleanTextFiles(repo, text_files, stop_words)
 
+
     #initialize word cloud visualisation
-    png_image = os.path.join(repo, "apple.png")
+    png_location = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis/img")
+    png_image = os.path.join(png_location, "apple.png")
     png_mask = np.array(Image.open(png_image))
 
     wc = WordCloud(background_color="black", max_words=40, 
