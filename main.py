@@ -1,34 +1,18 @@
-# |_                      _|
-# |   REQUIRED LIBRARIES   |
-# |                        |
-
-#1 ~ for cross-platform file location
+#---------------------------- REQUIRED LIBRARIES ----------------------------- 
 import os
-
-#2 ~ natural language processing toolkit - NLTK
-import nltk 
-#download relevant NLTK data, this needs to be done once for first time users 
-#see https://www.nltk.org/data.html
-
-#nltk.download('all')
-
-#3 for quick string manipulations
-import string
-import pandas
-
-#4 ~ for generating word clouds
-from wordcloud import WordCloud
-
-#5 ~ for image processing with WordCloud
 from PIL import Image
+import string
+
+import nltk 
+import pandas
 import numpy as np
 import matplotlib.pyplot as plt
+from wordcloud import WordCloud
 
-#6 ~ our classes from other files that hold various text cleaning and manipulation methods
 from modules.textCleaner import TextCleaner
 from modules.textCounter import TextCounter
 
-#main function, returns an array of dictionaries
+#-------------------------- MAIN CLEANING FUNCTION ---------------------------
 def cleanTextFiles (repo, text_files = [], stop_words = {}):
 
     dictionary_array = []
@@ -56,7 +40,7 @@ def cleanTextFiles (repo, text_files = [], stop_words = {}):
 
     return dictionary_array
 
-#main code
+#---------------------------- MAIN CODE -----------------------------
 if __name__ == "__main__":
 
     text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
