@@ -32,9 +32,13 @@ def cleanTextFiles (repo, text_files = [], stop_words = {}):
         cleaner_class = TextCleaner()
         updated_file_strings = cleaner_class.compareRemove(stop_words, file_strings)
 
+        #lemmatize updated_file_strings
+        lem_class = nltk.stem.wordnet.WordNetLemmatizer()
+        lemmas = [lem_class.lemmatize(token) for token in updated_file_strings]
+
         #producing a dictionary with word occurrence counts
         counter_class = TextCounter()
-        string_dictionary = counter_class.countElements(updated_file_strings)
+        string_dictionary = counter_class.countElements(lemmas)
 
         dictionary_array.append(string_dictionary)
 
