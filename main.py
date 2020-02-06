@@ -1,4 +1,5 @@
 #---------------------------- REQUIRED LIBRARIES -----------------------------
+
 import os
 from PIL import Image
 import string
@@ -13,6 +14,7 @@ from modules.textCleaner import TextCleaner
 from modules.textCounter import TextCounter
 
 #-------------------------- MAIN CLEANING FUNCTION ---------------------------
+
 def cleanTextFiles (repo, text_files = [], stop_words = {}):
 
     dictionary_array = []
@@ -21,7 +23,6 @@ def cleanTextFiles (repo, text_files = [], stop_words = {}):
     for i in range(0, len(text_files)):
 
         file_path = os.path.join(repo, text_files[i])
-
         file_open = open(file_path, encoding="utf-8-sig").read()
 
         #remove punctuation, convert to lowercase, and split words
@@ -45,6 +46,7 @@ def cleanTextFiles (repo, text_files = [], stop_words = {}):
     return dictionary_array
 
 #--------------------------------- MAIN CODE ---------------------------------
+
 if __name__ == "__main__":
 
     text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
