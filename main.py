@@ -75,6 +75,7 @@ if __name__ == "__main__":
 
     #subplot quantity based on the number of text files processed
     fig, axs = plt.subplots(1, len(dictionary_array))
+    fig.set_facecolor('black')
     fig.suptitle("Apple September Event Most Frequently Used Words",
                  color="#f5f5f7", horizontalalignment="center", x=0.5, y=0.75)
 
