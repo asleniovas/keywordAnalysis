@@ -97,4 +97,6 @@ if __name__ == "__main__":
         axs[e].set_yticks([])
 
     plt.subplots_adjust(wspace=-0.3)
+    fig.savefig('wordcloud.png', facecolor=fig.get_facecolor(), 
+                edgecolor='none')
     plt.show()
