@@ -77,7 +77,8 @@ if __name__ == "__main__":
     fig, axs = plt.subplots(1, len(dictionary_array))
     fig.set_facecolor('black')
     fig.suptitle("Apple September Event Most Frequently Used Words",
-                 color="#f5f5f7", horizontalalignment="center", x=0.5, y=0.75)
+                 color="#f5f5f7", horizontalalignment='center',
+                 fontsize="13", y="0.75")
 
     #loop through the array returned by cleanTextFiles() and plot
     for e in range(0, len(dictionary_array)):
@@ -87,7 +88,8 @@ if __name__ == "__main__":
         axs[e].imshow(wc, interpolation="bilinear")
 
         #x-axis tick params
-        axs[e].set_xlabel(text_files[e][12:16], color="#f5f5f7", fontfamily="sans-serif")
+        axs[e].set_xlabel(text_files[e][12:16], color="#f5f5f7", 
+                          fontfamily="sans-serif", fontsize="13")
         axs[e].set_xticklabels([])
         axs[e].set_xticks([])
         axs[e].xaxis.set_label_coords(0.5, 0.20)
@@ -96,7 +98,7 @@ if __name__ == "__main__":
         axs[e].set_yticklabels([])
         axs[e].set_yticks([])
 
-    plt.subplots_adjust(wspace=-0.3)
+    plt.subplots_adjust(wspace=-0.2)
     fig.savefig('wordcloud.png', facecolor=fig.get_facecolor(), 
                 edgecolor='none')
     plt.show()
