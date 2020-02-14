@@ -1,4 +1,4 @@
-#---------------------------- REQUIRED LIBRARIES -----------------------------
+#---------------------------- REQUIRED LIBRARIES ------------------------------
 
 import os
 from PIL import Image
@@ -13,7 +13,7 @@ from wordcloud import WordCloud
 from modules.textCleaner import TextCleaner
 from modules.textCounter import TextCounter
 
-#-------------------------- MAIN CLEANING FUNCTION ---------------------------
+#-------------------------- MAIN CLEANING FUNCTION ----------------------------
 
 def cleanTextFiles (data_folder, text_files = [], stop_words = {}):
 
@@ -46,60 +46,72 @@ def cleanTextFiles (data_folder, text_files = [], stop_words = {}):
 
     return dictionary_list
 
-#--------------------------------- MAIN CODE ---------------------------------
+#--------------------------------- MAIN CODE ----------------------------------
 
 if __name__ == "__main__":
 
-    text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt", 
-                  "Apple_Event_2019_09.txt"]
+    #text file names
+    text_files = ["Apple_Event_2017_09.txt", "Apple_Event_2018_09.txt" 
+                  ,"Apple_Event_2019_09.txt"]
 
-    #generate stop words set with help of NLTK and add custom ones
+    #generate standard stop words set with NLTK and add custom ones
     stop_words = set(nltk.corpus.stopwords.words("english"))
-    new_stop_words = {"applause", "music", "apple", "ipad", "us", "gonna", "series", 
-                      "thank", "like", "we've", "pro", "i'm", "xs", "get", "4",
-                      "iphone", "we're", "that's", "11", "10", "8", "look"}
+    new_stop_words = {"us", "gonna", "series", "10", "11", "8", "4"
+                      , "applause", "music", "apple", "ipad" 
+                      , "thank", "like", "we've", "look"
+                      , "iphone", "we're", "that's"
+                      , "pro", "i'm", "xs", "get"}
     
     stop_words = stop_words.union(new_stop_words)
 
-    #set text file location, and call the main function
-    data_folder = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis/data")
-    dictionary_array = cleanTextFiles(data_folder, text_files, stop_words)
+    #set text file location
+    data_folder = os.path.join(os.path.expanduser("~")
+                               , "Documents/repos/keywordAnalysis/data")
+    
+    #call main cleaning function
+    clean_dict_list = cleanTextFiles(data_folder, text_files, stop_words)
 
-
-    #initialize word cloud visualisation
-    img_folder = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis/img")
+    
+    #initialize wordcloud visualisation and set params
+    img_folder = os.path.join(os.path.expanduser("~")
+                              , "Documents/repos/keywordAnalysis/img")
+    
     png_image = os.path.join(img_folder, "apple.png")
     png_mask = np.array(Image.open(png_image))
-
     wc = WordCloud(background_color="black", max_words=40, 
                    mask=png_mask, colormap="plasma")
 
-    #subplot quantity based on the number of text files processed
-    fig, axs = plt.subplots(1, len(dictionary_array))
-    fig.set_facecolor('black')
-    fig.suptitle("Apple September Event Most Frequently Used Words",
-                 color="#f5f5f7", horizontalalignment='center',
-                 fontsize="13", y="0.75")
-
-    #loop through the array returned by cleanTextFiles() and plot
-    for e in range(0, len(dictionary_array)):
-
-        wc.generate_from_frequencies(dictionary_array[e])
     
+    #start plotting figure based on quantity of processed files
+    list_length = len(clean_dict_list)
+    fig, axs = plt.subplots(1, list_length)
+    fig.suptitle("Apple September Event Most Frequently Used Words",
+                 color="#f5f5f7", horizontalalignment="center",
+                 fontsize="13", y="0.75")
+    
+    fig.set_facecolor('black')
+
+    #loop through the list returned by cleanTextFiles() and adjust subplots
+    for e in range(0, len(list_length)):
+
+        wc.generate_from_frequencies(clean_dict_list[e])
         axs[e].imshow(wc, interpolation="bilinear")
 
-        #x-axis tick params
-        axs[e].set_xlabel(text_files[e][12:16], color="#f5f5f7", 
-                          fontfamily="sans-serif", fontsize="13")
+        #x-axis params
+        axs[e].set_xlabel(text_files[e][12:16], fontfamily="sans-serif"  
+                          , fontsize="13", color="#f5f5f7")
         axs[e].set_xticklabels([])
         axs[e].set_xticks([])
         axs[e].xaxis.set_label_coords(0.5, 0.20)
 
-        #y-axis tick params
+        #y-axis params
         axs[e].set_yticklabels([])
         axs[e].set_yticks([])
 
-    plt.subplots_adjust(wspace=-0.2)
-    fig.savefig('wordcloud.png', facecolor=fig.get_facecolor(), 
-                edgecolor='none')
+    #adjust spacing between subplots
+    plt.subplots_adjust(wspace= -0.2)
+    
+
+    fig.savefig("wordcloud.png", facecolor=fig.get_facecolor() 
+                , edgecolor="none")
     plt.show()
