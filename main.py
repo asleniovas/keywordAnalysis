@@ -2,7 +2,7 @@
 
 import os
 from PIL import Image
-import string
+from string import punctuation
 
 import nltk 
 import pandas
@@ -15,35 +15,36 @@ from modules.textCounter import TextCounter
 
 #-------------------------- MAIN CLEANING FUNCTION ---------------------------
 
-def cleanTextFiles (repo, text_files = [], stop_words = {}):
+def cleanTextFiles (data_folder, text_files = [], stop_words = {}):
 
-    dictionary_array = []
+    dictionary_list = []
 
-    #loop through each text file, open and clean
+    #loop through each text file, read and clean
     for i in range(0, len(text_files)):
 
-        file_path = os.path.join(repo, text_files[i])
+        file_path = os.path.join(data_folder, text_files[i])
         file_open = open(file_path, encoding="utf-8-sig").read()
 
-        #remove punctuation, convert to lowercase, and split words
-        text = file_open.translate(str.maketrans("", "", string.punctuation.replace("'","")))
+        #remove punctuation leave apostrophes, convert to lowercase and split
+        my_punctuation = punctuation.replace("'", "")
+        text = file_open.translate(str.maketrans("", "", my_punctuation))
         file_strings = text.lower().split()
 
-        #clean file_strings from stop words by calling compareRemove() function
-        cleaner_class = TextCleaner()
-        updated_file_strings = cleaner_class.compareRemove(stop_words, file_strings)
+        #clean file_strings from stop words
+        cleaner = TextCleaner()
+        updated_file_strings = cleaner.compareRemove(stop_words, file_strings)
 
         #lemmatize updated_file_strings
-        lem_class = nltk.stem.wordnet.WordNetLemmatizer()
-        lemmas = [lem_class.lemmatize(token) for token in updated_file_strings]
+        lemmtzr = nltk.stem.wordnet.WordNetLemmatizer()
+        lemmas = [lemmtzr.lemmatize(token) for token in updated_file_strings]
 
-        #producing a dictionary with word occurrence counts
-        counter_class = TextCounter()
-        string_dictionary = counter_class.countElements(lemmas)
+        #produce a dictionary with word occurrence counts
+        counter = TextCounter()
+        string_dictionary = counter.countElements(lemmas)
 
-        dictionary_array.append(string_dictionary)
+        dictionary_list.append(string_dictionary)
 
-    return dictionary_array
+    return dictionary_list
 
 #--------------------------------- MAIN CODE ---------------------------------
 
@@ -61,13 +62,13 @@ if __name__ == "__main__":
     stop_words = stop_words.union(new_stop_words)
 
     #set text file location, and call the main function
-    repo = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis/data")
-    dictionary_array = cleanTextFiles(repo, text_files, stop_words)
+    data_folder = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis/data")
+    dictionary_array = cleanTextFiles(data_folder, text_files, stop_words)
 
 
     #initialize word cloud visualisation
-    png_location = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis/img")
-    png_image = os.path.join(png_location, "apple.png")
+    img_folder = os.path.join(os.path.expanduser("~"), "Documents/repos/keywordAnalysis/img")
+    png_image = os.path.join(img_folder, "apple.png")
     png_mask = np.array(Image.open(png_image))
 
     wc = WordCloud(background_color="black", max_words=40, 
