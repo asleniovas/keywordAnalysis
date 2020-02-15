@@ -57,7 +57,7 @@ if __name__ == "__main__":
     #generate standard stop words set with NLTK and add custom ones
     stop_words = set(nltk.corpus.stopwords.words("english"))
     new_stop_words = {"us", "gonna", "series", "take", "10", "11", "8" 
-                      , "4", "applause", "apple", "ipad" 
+                      , "4", "applause", "apple", "ipad", "there's" 
                       , "thank", "like", "we've", "look"
                       , "iphone", "we're", "that's"
                       , "pro", "i'm", "xs", "get"}
