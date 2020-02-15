@@ -4,8 +4,8 @@ class TextCleaner:
     def __init__(self):
         pass
 
-    #function accepts a set and array 
-    #removes elements from array that match elements in set 
+    #function accepts a set and list 
+    #removes elements from list that match elements in set 
     def compareRemove(self, set1 = {}, array1 = []):
 
         #using list comprehension with set for performance
