@@ -84,7 +84,7 @@ if __name__ == "__main__":
     
     #start plotting figure based on quantity of processed files
     list_length = len(clean_dict_list)
-    fig, axs = plt.subplots(1, list_length, figsize=(7,3))
+    fig, axs = plt.subplots(1, list_length, figsize=(6,3))
     fig.suptitle("Apple September Event Most Frequently Used Words", y="0.75"
                  , color="#f5f5f7", horizontalalignment="center"
                  , fontsize="13", verticalalignment="center")
