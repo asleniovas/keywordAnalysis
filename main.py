@@ -92,7 +92,7 @@ if __name__ == "__main__":
     fig.set_facecolor('black')
 
     #loop through the list returned by cleanTextFiles() and adjust subplots
-    for e in range(0, len(list_length)):
+    for e in range(0, list_length):
 
         wc.generate_from_frequencies(clean_dict_list[e])
         axs[e].imshow(wc, interpolation="bilinear")
