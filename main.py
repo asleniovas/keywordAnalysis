@@ -78,9 +78,8 @@ if __name__ == "__main__":
     
     png_image = os.path.join(img_folder, "apple.png")
     png_mask = np.array(Image.open(png_image))
-    wc = WordCloud(background_color="black", max_words=50
-                   , width=1000, height=500
-                   , mask=png_mask, colormap="plasma")
+    wc = WordCloud(background_color="black", max_words=40
+                   , mask=png_mask, colormap="autumn")
 
     
     #start plotting figure based on quantity of processed files
