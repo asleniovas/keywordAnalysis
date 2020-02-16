@@ -56,11 +56,11 @@ if __name__ == "__main__":
 
     #generate standard stop words set with NLTK and add custom ones
     stop_words = set(nltk.corpus.stopwords.words("english"))
-    new_stop_words = {"us", "gonna", "series", "take", "10", "11", "8" 
-                      , "4", "applause", "apple", "ipad", "there's" 
-                      , "thank", "like", "we've", "look", "one"
-                      , "iphone", "we're", "that's"
-                      , "pro", "i'm", "xs", "get"}
+    new_stop_words = {"us", "gonna", "series", "take", "10", "11", "8", "i"
+                      , "4", "applause", "apple", "ipad", "there's", "we'd" 
+                      , "thank", "like", "we've", "look", "one", "what's"
+                      , "i'm", "xs", "get", "i'd", "i'll", "let's", "pro"
+                      , "iphone", "we're", "that's", "they're", "can't"}
     
     stop_words = stop_words.union(new_stop_words)
 
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     
     png_image = os.path.join(img_folder, "apple.png")
     png_mask = np.array(Image.open(png_image))
-    wc = WordCloud(background_color="black", max_words=40
+    wc = WordCloud(background_color="black", max_words=150
                    , mask=png_mask, colormap="autumn")
 
     
