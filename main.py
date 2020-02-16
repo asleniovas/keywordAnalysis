@@ -58,7 +58,7 @@ if __name__ == "__main__":
     stop_words = set(nltk.corpus.stopwords.words("english"))
     new_stop_words = {"us", "gonna", "series", "take", "10", "11", "8" 
                       , "4", "applause", "apple", "ipad", "there's" 
-                      , "thank", "like", "we've", "look"
+                      , "thank", "like", "we've", "look", "one"
                       , "iphone", "we're", "that's"
                       , "pro", "i'm", "xs", "get"}
     
@@ -113,5 +113,5 @@ if __name__ == "__main__":
     
 
     fig.savefig("wordcloud.png", facecolor=fig.get_facecolor() 
-                , edgecolor="black", dpi=1200)
+                , edgecolor="black", dpi=600)
     plt.show()
