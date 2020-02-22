@@ -1,4 +1,5 @@
 import unittest
+
 from modules.textCleaner import TextCleaner
 
 class TestTextCleanerMethods(unittest.TestCase):
