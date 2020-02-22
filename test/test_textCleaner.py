@@ -6,7 +6,7 @@ class TestTextCleanerMethods(unittest.TestCase):
     def setUp(self):
         self.cleaner = TextCleaner()
 
-
+    # test with empty set and list
     def test_emptyInputs(self):
 
         emptySet = {}
@@ -16,6 +16,7 @@ class TestTextCleanerMethods(unittest.TestCase):
 
         self.assertEqual(emptyResult, 0)
 
+    # test with list only
     def test_SingleInputs(self):
 
         emptySet = {}
@@ -25,6 +26,7 @@ class TestTextCleanerMethods(unittest.TestCase):
 
         self.assertEqual(result, 3)
 
+    # test that return is a list
     def test_returnType(self):
 
         exampleSet = {"one", "two", "three"}
@@ -34,6 +36,8 @@ class TestTextCleanerMethods(unittest.TestCase):
 
         self.assertEqual(result, list)
 
+    # test for correct return result
+    # list should remain the same in the below case
     def test_returnResult(self):
 
         exampleSet = {"three", "four"}
