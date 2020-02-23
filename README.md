@@ -1,3 +1,4 @@
 # keywordAnalysis
 A wordcloud visualistion of most frequently occurring words in text files.
-![Wordcloud] (wordcloud.png)
+
+![Wordcloud] (wordcloud.png?raw=true)
