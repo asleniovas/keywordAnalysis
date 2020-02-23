@@ -18,7 +18,7 @@ class TestTextCleanerMethods(unittest.TestCase):
         self.assertEqual(emptyResult, 0)
 
     # test with list only
-    def test_SingleInputs(self):
+    def test_singleInputs(self):
 
         emptySet = {}
         exampleList = ["one", "two", "three"]
