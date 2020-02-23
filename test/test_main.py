@@ -20,3 +20,13 @@ class TestMainMethods(unittest.TestCase):
                                     self.stop_words))
 
         self.assertEqual(result, 0)
+
+    # test return with 1 file
+    def test_oneFile(self):
+
+        fileList = ["Apple_Event_2017_09.txt"]
+
+        result = len(cleanTextFiles(self.data_folder, fileList, 
+                                    self.stop_words))
+
+        self.assertEqual(result, 1)
